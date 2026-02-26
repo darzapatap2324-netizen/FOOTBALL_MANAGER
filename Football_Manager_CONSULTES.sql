@@ -90,12 +90,34 @@ ORDER BY jornades.data asc;
 
 -- 7a Consulta
 /*Donada una lliga, una temporada, un equip local i un equip visitant,
- seleccionar els gols marcats en aquest partit. Mostrar la data i la
- jornada en la que van jugar,  el nom de l'equip local, el nom de
+ seleccionar els gols marcats en aquest partit.
+ Mostrar la data i la jornada en la que van jugar,  el nom de l'equip local, el nom de
  l'equip visitant, els gols de l'equip local, els gols de l'equip visitant,
  el minut del gol, el nom i cognoms del jugador que ha fet gol,
  l'equip al que pertany el jugador i si ha estat de penalti o no.
  Ordenar la informació pel minut del gol.*/
-
-
+SELECT jornades.data, jornades.jornada, equips_local.nom, 
+equips_visitant.nom, partits.gols_local, partits.gols_visitant
+ ,partits_gols.minut, persones.nom, persones.cognoms, partits_gols.es_penal
+FROM lligues
+JOIN jornades ON jornades.lligues_id = lligues.id
+JOIN partits ON partits.jornades_id = jornades.id
+JOIN equips AS equips_local ON equips_local.id = partits.equips_id_local
+JOIN equips AS equips_visitant ON equips_visitant.id = partits.equips_id_visitant
+LEFT JOIN partits_gols ON partits_gols.partits_id = partits.id
+LEFT JOIN jugadors ON jugadors.persones_id = partits_gols.jugadors_id
+LEFT JOIN jugadors_equips ON jugadors_equips.jugadors_id = jugadors.persones_id 
+LEFT JOIN persones ON persones.id = jugadors.persones_id
+WHERE lligues.nom = 'Liga F Moeve' AND lligues.temporada = 2024 AND equips_local.nom = 'FC Barcelona' AND equips_visitant.nom = 'FC Barcelona'
+ORDER BY partits_gols.minut asc;
+USE football_manager;
 SELECT * FROM equips;
+/*JOIN jugadors ON jugadors.persones_id = persones.id
+JOIN jugadors_equips ON jugadors_equips.jugadors_id = jugadors.persones_id
+JOIN equips ON equips.id = jugadors_equips.equips_id
+JOIN partits ON partits.equips_id = equips.id
+JOIN equips AS equips_local ON equips_local.id = partits.equips_id_local
+JOIN equips AS equips_visitant ON equips_visitant.id = partits.equips_id_visitant
+JOIN jornades ON jornades.id = partits.jornades_id
+JOIN lligues ON lligues.id = jornades.lligues_id
+JOIN partits_gols ON partits_gols.partits_id = partits.id AND partits_gols.jugadors_id = jugadors.persones_id*/
