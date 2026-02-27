@@ -1,49 +1,83 @@
-
 use football_manager;
 
 -- CREAR USUARIOS ADMINISTRADORES
-CREATE USER IF NOT EXISTS 'superadministrador'@'localhost' IDENTIFIED BY 'superadministrador'
+-- SUPERADMINISTRADOR
+CREATE USER 'superadministrador'@'localhost' IDENTIFIED BY 'superadministrador'
 	PASSWORD HISTORY 2
     PASSWORD EXPIRE INTERVAL 30 DAY;
-CREATE USER IF NOT EXISTS 'adminEquips'@'localhost' IDENTIFIED BY 'adminequips' PASSWORD EXPIRE;
-CREATE USER IF NOT EXISTS 'adminLligues'@'localhost' IDENTIFIED BY 'adminlligues';
+
+-- Administrador de equips
+CREATE USER 'adminEquips'@'localhost' IDENTIFIED BY 'adminequips' PASSWORD EXPIRE;
+
+-- Administrador de lligues
+CREATE USER 'adminLligues'@'localhost' IDENTIFIED BY 'adminlligues';
 	
 -- CREAR ROL I USAURIOS DEL PERIODISMO
-CREATE ROLE IF NOT EXISTS 'periodista';
-CREATE USER IF NOT EXISTS 'periodistaSport'@'localhost' IDENTIFIED BY 'periodista';
-CREATE USER IF NOT EXISTS 'periodistaAS'@'localhost' IDENTIFIED BY 'periodista';
-CREATE USER IF NOT EXISTS 'periodistaMundo'@'localhost' IDENTIFIED BY 'periodista';
+CREATE ROLE 'periodista';
+CREATE USER 'periodistaSport'@'localhost' IDENTIFIED BY 'periodista';
+CREATE USER 'periodistaAS'@'localhost' IDENTIFIED BY 'periodista';
+CREATE USER 'periodistaMundo'@'localhost' IDENTIFIED BY 'periodista';
 
 -- PERMISOS:
 -- SUPERADMINISTRADOR 
+-- Lectura, Insercion, Modificacion y borrado sobre toda la base de datos
 GRANT SELECT, INSERT, UPDATE, DELETE 
 	ON football_manager.*
     TO 'superadministrador'@'localhost';
 
--- Administrador de equips
-GRANT SELECT, UPDATE 
+-- PERMISOS
+-- ADMINISTRADOR DE EQUIPS
+-- Consulta y Modificar la tabla Equips
+GRANT SELECT, UPDATE
 	ON 	football_manager.equips
     TO 'adminEquips'@'localhost';
+
+-- No Puede añadir ni eliminar datos en la tabla Equips
 REVOKE INSERT, DELETE ON football_manager.equips FROM 'adminEquips'@'localhost';
+
+-- Consulta y Modificar la tabla Estadis
 GRANT SELECT, UPDATE
 	ON football_manager.estadis
     TO 'adminEquips'@'localhost';
+
+-- No Puede añadir ni eliminar datos en la tabla Estadis
 REVOKE INSERT, DELETE ON football_manager.estadis FROM 'adminEquips'@'localhost';
+
+-- No Puede añadir ni eliminar datos en la tabla Persones
 GRANT SELECT, UPDATE
 	ON football_manager.persones
     TO 'adminEquips'@'localhost';
+
+-- No Puede añadir ni eliminar datos en la tabla Persones
 REVOKE INSERT, DELETE ON football_manager.persones FROM 'adminEquips'@'localhost';
 
--- Periodista
+-- PERMISOS
+-- ADMINISTRADOR DE LLIGUES
+GRANT INSERT, UPDATE, SELECT
+	ON football_manager.lligues
+    TO 'adminLligues'@'localhost';
+    
+GRANT INSERT, UPDATE, SELECT
+	ON football_manager.jornades
+    TO 'adminLligues'@'localhost';
+    
+GRANT INSERT, UPDATE, SELECT
+	ON football_manager.partits
+    TO 'adminLligues'@'localhost';
+    
+GRANT INSERT, UPDATE, SELECT
+	ON football_manager.partits_gols
+    TO 'adminLligues'@'localhost';
+
+-- PERMISOS:
+-- PERIODISTA
+-- Puede consultar toda la base de datos
 GRANT SELECT
 	ON football_manager.*
-    TO 'periodista'
-    WITH GRANT OPTION;
+    TO 'periodista';
+
+-- No puede añadir, borrar o modificar la base de datos
 REVOKE INSERT, DELETE, UPDATE ON football_manager.* FROM 'periodista';
-
-
-
-
 
 
 -- VISTAS (para mostrar info filtrada u processada)
@@ -63,11 +97,9 @@ SHOW CREATE VIEW TopGoleadores; -- Enseña la descripcion del view
 SELECT * FROM TopGoleadores;
 
 
-
-
 -- Esta view esta por hacer acabalo si puedes, te reto.
 CREATE OR REPLACE VIEW EntrenadoresMasPartidosDirigidos
-	AS SELECT persones.nom AS 'NOMBRE_ENTRENADORS', persones.cognoms AS 'COGNOMS_ENTRENADORS', COUNT()
+	AS SELECT persones.nom AS 'NOMBRE_ENTRENADORS', persones.cognoms AS 'COGNOMS_ENTRENADORS', COUNT(*);
 
 
 -- Las views EquipsLlocsJugant, LliguesParticipen no estan filtradas como lo demanda el enunciado. Lo has de rehacer.
@@ -82,7 +114,7 @@ CREATE OR REPLACE VIEW LliguesParticipen
 	AS SELECT equips.nom AS 'Equips', lligues.nom AS 'Lligues'
     FROM lligues
     JOIN participar_lligues ON participar_lligues.lligues_id = lligues.id
-    JOIN equips ON equips.filial_equips_id = participar_lligues.equips_id;
+    JOIN equips ON equips.filial_equips_id = participar_lligues.equips_id;topgoleadorestopgoleadores
     
 
 -- Periodista AS(alts carrecs)
