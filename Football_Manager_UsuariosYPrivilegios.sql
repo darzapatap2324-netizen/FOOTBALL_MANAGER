@@ -79,9 +79,10 @@ GRANT SELECT
 -- No puede añadir, borrar o modificar la base de datos
 REVOKE INSERT, DELETE, UPDATE ON football_manager.* FROM 'periodista';
 
-
 -- VISTAS (para mostrar info filtrada u processada)
 -- Drop view if exists EntrenadorsEquips;
+
+-- PRIMERA VISTA
 CREATE OR REPLACE VIEW TopGoleadores
 	AS SELECT persones.nom AS 'Nom_Jugador', persones.cognoms AS 'Cognom/s_Jugador', equips.nom AS 'Equip', sum(partits.gols_local + partits.gols_visitant) as GolsTotal
     FROM jugadors
@@ -96,45 +97,57 @@ CREATE OR REPLACE VIEW TopGoleadores
 SHOW CREATE VIEW TopGoleadores; -- Enseña la descripcion del view
 SELECT * FROM TopGoleadores;
 
+-- SEGUNDA VISTA
+CREATE OR REPLACE VIEW JugadorsJovesLaLliga AS
+SELECT persones.nom AS 'Nom_Jugador', persones.cognoms AS 'Cognom_Jugador', 
+persones.data_naixement AS 'Naixament', equips.nom AS 'Equip'
+FROM jugadors
+JOIN persones ON persones.id = jugadors.persones_id
+JOIN jugadors_equips ON jugadors_equips.jugadors_id = jugadors.persones_id
+JOIN equips ON equips.id = jugadors_equips.equips_id
+JOIN participar_lligues ON participar_lligues.equips_id = equips.id
+JOIN lligues ON lligues.id = participar_lligues.lligues_id
+WHERE persones.data_naixement > '1999-12-31' AND lligues.nom = 'La Liga EA Sports'
+ORDER BY persones.data_naixement ASC;
+select * from JugadorsJovesLaLliga;
 
--- Esta view esta por hacer acabalo si puedes, te reto.
-CREATE OR REPLACE VIEW EntrenadoresMasPartidosDirigidos
-	AS SELECT persones.nom AS 'NOMBRE_ENTRENADORS', persones.cognoms AS 'COGNOMS_ENTRENADORS', COUNT(*);
+-- TERCERA VISTA
+CREATE OR REPLACE VIEW PosicioJugadorsEquips AS
+SELECT persones.nom AS 'Nom_Jugador', persones.cognoms AS 'Cognom_Jugador',
+equips.nom AS 'Equip', jugadors.qualitat AS 'Qualitat', posicions.posicio AS 'Posició'
+FROM jugadors
+JOIN persones ON persones.id = jugadors.persones_id
+JOIN posicions ON posicions.id = jugadors.posicions_id
+JOIN jugadors_equips ON jugadors_equips.jugadors_id = jugadors.persones_id
+JOIN equips ON equips.id = jugadors_equips.equips_id
+WHERE jugadors_equips.data_baixa IS NULL
+ORDER BY persones.nom;
+SELECT * FROM JugadoresEquiposPosicion;
 
+-- CUARTA VISTA
+CREATE OR REPLACE VIEW InformacioEquips AS
+SELECT equips.nom AS 'Nom_Equip', ciutats.nom AS 'Ciutat_Equip', lligues.nom AS 'Nom_Lliga'
+FROM equips
+JOIN ciutats ON ciutats.id = equips.ciutats_id
+JOIN participar_lligues ON participar_lligues.equips_id = equips.id
+JOIN lligues ON lligues.id = participar_lligues.lligues_id
+ORDER BY equips.nom;
+SELECT * FROM EquiposCiutatLliga;
 
--- Las views EquipsLlocsJugant, LliguesParticipen no estan filtradas como lo demanda el enunciado. Lo has de rehacer.
-CREATE OR REPLACE VIEW EquipsLlocsJugant
-	AS SELECT equips.nom AS 'Nom de equip', ciutats.nom AS 'Ciutat', estadis.nom AS 'Estadi'
-	FROM equips
-    JOIN estadis ON estadis.id = equips.estadis_id
-    JOIN ciutats ON ciutats.id = equips.ciutats_id;
-    
-    
-CREATE OR REPLACE VIEW LliguesParticipen
-	AS SELECT equips.nom AS 'Equips', lligues.nom AS 'Lligues'
-    FROM lligues
-    JOIN participar_lligues ON participar_lligues.lligues_id = lligues.id
-    JOIN equips ON equips.filial_equips_id = participar_lligues.equips_id;topgoleadorestopgoleadores
-    
-
--- Periodista AS(alts carrecs)
--- 
+-- ACCESO VISTAS
+-- Periodista(alts carrecs)
 GRANT SELECT 
-	ON -- NOM_VIEW
-    TO 'periodistaAS'@'localhost'
-    WITH GRANT OPTION;
+	ON topgoleadores
+    TO 'periodistaAS'@'localhost';
 
 GRANT SELECT 
-	ON -- NOM_VIEW
-    TO 'periodistaAS'@'localhost'
-	WITH GRANT OPTION;
+	ON jugadorsjoveslalliga
+    TO 'periodistaMundo'@'localhost';
     
 GRANT SELECT 
-	ON -- NOM_VIEW
-    TO 'periodistaAS'@'localhost'
-    WITH GRANT OPTION;
+	ON posiciojugadorsequips
+    TO 'periodistaSport'@'localhost';
     
 GRANT SELECT 
-	ON -- NOM_VIEW
-    TO 'periodistaAS'@'localhost'
-    WITH GRANT OPTION;
+	ON informacioequips
+    TO 'periodistaAS'@'localhost';
