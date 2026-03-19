@@ -1,17 +1,21 @@
-
 USE football_manager;
-SELECT * FROM lligues;
 
--- 1r Consulta
-SELECT equips.nom, equips.any_fundacio, equips.nom_president, ciutats.nom, estadis.nom, estadis.num_espectadors
+-- 1r CONSULTA 
+SELECT equips.nom AS equip, equips.any_fundacio AS any_fundacio, equips.nom_president AS president, 
+       ciutats.nom AS ciutat, estadis.nom AS estadi, estadis.num_espectadors AS espectadors
 FROM equips
 JOIN ciutats ON ciutats.id = equips.ciutats_id
 JOIN estadis ON estadis.id = equips.estadis_id
+JOIN participar_lligues ON participar_lligues.equips_id = equips.id
+JOIN lligues ON lligues.id = participar_lligues.lligues_id
 WHERE estadis.num_espectadors BETWEEN 3000 AND 5000
-ORDER BY estadis.num_espectadors asc; 
+AND lligues.nom = 'Liga F Moeve' /*con La Liga EA Sports no sale nada*/ 
+AND lligues.temporada = 2024
+ORDER BY estadis.num_espectadors DESC;
 
 -- 2n Consulta
-SELECT ciutats.nom, equips.nom, persones.nom, persones.cognoms
+SELECT ciutats.nom AS ciutat, equips.nom AS nom_equip, persones.nom AS nom_entrenador,
+ persones.cognoms AS cognom_entrenador
 FROM entrenadors
 JOIN persones ON persones.id = entrenadors.persones_id
 JOIN entrenar_equips ON entrenar_equips.entrenadors_id = entrenadors.persones_id
@@ -21,28 +25,25 @@ WHERE ciutats.nom IN  ('Barcelona', 'Madrid', 'Sevilla')
 AND persones.nom NOT LIKE 'F%'  AND persones.cognoms LIKE '%e%'; 
 
 -- 3r Consulta
-SELECT /*equips.id,*/ equips.nom, SUM(punts) AS 'Puntuacio_Total'
+SELECT equips.nom, SUM(punts) AS 'Puntuacio_Total'
 FROM (
-	SELECT partits.equips_id_local AS 'equips_id', partits.punts_local AS 'punts'
+    SELECT partits.equips_id_local AS equips_id, partits.punts_local AS punts
     FROM partits
-    JOIN equips ON equips.id = partits.equips_id_local AND partits.equips_id_visitant
-    JOIN participar_lligues ON participar_lligues.equips_id = equips.id
-	JOIN lligues ON  lligues.id = participar_lligues.lligues_id
-	WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024
-    
-    UNION ALL
-    
-    SELECT partits.equips_id_visitant AS 'equips_id', partits.punts_visitant AS 'punts'
-    FROM partits
-    JOIN equips ON equips.id = partits.equips_id_local AND partits.equips_id_visitant
-    JOIN participar_lligues ON participar_lligues.equips_id = equips.id
-	JOIN lligues ON  lligues.id = participar_lligues.lligues_id
-	WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024
-    ) AS equipos
-JOIN equips ON equips.id = equipos.equips_id
-GROUP BY equips.nom/*, equips.id*/
-ORDER BY Puntuacio_Total DESC;
+    JOIN participar_lligues ON participar_lligues.equips_id = partits.equips_id_local
+    JOIN lligues ON lligues.id = participar_lligues.lligues_id
+    WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024
 
+    UNION ALL
+
+    SELECT partits.equips_id_visitant AS equips_id, partits.punts_visitant AS punts
+    FROM partits
+    JOIN participar_lligues ON participar_lligues.equips_id = partits.equips_id_visitant
+    JOIN lligues ON lligues.id = participar_lligues.lligues_id
+    WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024
+) AS equipos
+JOIN equips ON equips.id = equipos.equips_id 
+GROUP BY equips.nom
+ORDER BY Puntuacio_Total DESC;
 
 -- 4t Consulta
 SELECT equips.nom, persones.tipus_persona, CONCAT(persones.nom, ' ' ,persones.cognoms) AS 'Nombre_Completo'
@@ -101,10 +102,23 @@ JOIN partits_gols ON partits_gols.partits_id = partits.id
 JOIN jugadors ON jugadors.persones_id = partits_gols.jugadors_id
 JOIN jugadors_equips ON jugadors_equips.jugadors_id = jugadors.persones_id 
 JOIN persones ON persones.id = jugadors.persones_id
-WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024 AND ( equips_local.nom = 'FC Barcelona' OR equips_visitant.nom = 'FC Barcelona' )
+WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024 AND ( equips_local.nom = 'FC Barcelona' and equips_visitant.nom = 'Real Madrid CF' )
 ORDER BY partits_gols.minut asc;
 
 
+-- 7a Consulta
+SELECT *
+FROM lligues
+JOIN jornades ON jornades.lligues_id = lligues.id
+JOIN partits ON partits.jornades_id = jornades.id
+JOIN equips AS equips_local ON equips_local.id = partits.equips_id_local
+JOIN equips AS equips_visitant ON equips_visitant.id = partits.equips_id_visitant
+JOIN partits_gols ON partits_gols.partits_id = partits.id
+JOIN jugadors ON jugadors.persones_id = partits_gols.jugadors_id
+JOIN jugadors_equips ON jugadors_equips.jugadors_id = jugadors.persones_id 
+JOIN persones ON persones.id = jugadors.persones_id
+WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024 AND ( equips_local.nom = 'FC Barcelona' and equips_visitant.nom = 'Real Madrid CF' )
+ORDER BY partits_gols.minut asc;
 
 -- 8va Consulta
 SELECT persones.nom, persones.cognoms, COUNT(partits_gols.jugadors_id) AS 'Gols'
@@ -118,25 +132,3 @@ WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024
 GROUP BY persones.nom, persones.cognoms
 ORDER BY Gols desc
 LIMIT 10;
-
-
-
--- 9na Consulta 
-/*Buscar els jugadors que cobrin entre 7.000.000 i 12.000.000, tinguin un nivell
- de motivació igual o superior a 85 i l'any de la seva data de naixement sigui
- 1959 o 1985 o 1992. Ordenar pel sou de major a menor.*/
-
-
-
-
-
-
-
-
-
-
-
-
-USE football_manager;
-SELECT * FROM lligues;
-
