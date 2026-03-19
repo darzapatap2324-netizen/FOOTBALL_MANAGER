@@ -1,15 +1,16 @@
 use football_manager;
 
 -- CREAR USUARIOS ADMINISTRADORES
+
 -- SUPERADMINISTRADOR
 CREATE USER 'superadministrador'@'localhost' IDENTIFIED BY 'superadministrador'
 	PASSWORD HISTORY 2
     PASSWORD EXPIRE INTERVAL 30 DAY;
 
--- Administrador de equips
+-- ADMINISTRADOR DE EQUIPS
 CREATE USER 'adminEquips'@'localhost' IDENTIFIED BY 'adminequips' PASSWORD EXPIRE;
 
--- Administrador de lligues
+-- ADMINISTRADOR DE LLIGUES
 CREATE USER 'adminLligues'@'localhost' IDENTIFIED BY 'adminlligues';
 	
 -- CREAR ROL I USAURIOS DEL PERIODISMO
@@ -19,14 +20,16 @@ CREATE USER 'periodistaAS'@'localhost' IDENTIFIED BY 'periodista';
 CREATE USER 'periodistaMundo'@'localhost' IDENTIFIED BY 'periodista';
 
 -- PERMISOS:
--- SUPERADMINISTRADOR 
+
+-- SUPERADMINISTRADOR:
 -- Lectura, Insercion, Modificacion y borrado sobre toda la base de datos
 GRANT SELECT, INSERT, UPDATE, DELETE 
 	ON football_manager.*
     TO 'superadministrador'@'localhost';
 
 -- PERMISOS
--- ADMINISTRADOR DE EQUIPS
+
+-- ADMINISTRADOR DE EQUIPS:
 -- Consulta y Modificar la tabla Equips
 GRANT SELECT, UPDATE
 	ON 	football_manager.equips
@@ -52,7 +55,8 @@ GRANT SELECT, UPDATE
 REVOKE INSERT, DELETE ON football_manager.persones FROM 'adminEquips'@'localhost';
 
 -- PERMISOS
--- ADMINISTRADOR DE LLIGUES
+
+-- ADMINISTRADOR DE LLIGUES:
 GRANT INSERT, UPDATE, SELECT
 	ON football_manager.lligues
     TO 'adminLligues'@'localhost';
@@ -69,8 +73,9 @@ GRANT INSERT, UPDATE, SELECT
 	ON football_manager.partits_gols
     TO 'adminLligues'@'localhost';
 
--- PERMISOS:
--- PERIODISTA
+-- PERMISOS
+
+-- PERIODISTA:
 -- Puede consultar toda la base de datos
 GRANT SELECT
 	ON football_manager.*
@@ -80,7 +85,6 @@ GRANT SELECT
 REVOKE INSERT, DELETE, UPDATE ON football_manager.* FROM 'periodista';
 
 -- VISTAS (para mostrar info filtrada u processada)
--- Drop view if exists EntrenadorsEquips;
 
 -- PRIMERA VISTA
 CREATE OR REPLACE VIEW TopGoleadores
@@ -135,6 +139,7 @@ ORDER BY equips.nom;
 SELECT * FROM EquiposCiutatLliga;
 
 -- ACCESO VISTAS
+
 -- Periodista(alts carrecs)
 GRANT SELECT 
 	ON topgoleadores
