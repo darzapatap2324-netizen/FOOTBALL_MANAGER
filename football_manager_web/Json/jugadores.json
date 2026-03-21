@@ -1,0 +1,232 @@
+[
+    {
+        "equip": "FC Barcelona",
+        "escut": "Imagenes/logo_equip/logo_fcb.png",
+        "jugadors": [
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/326612.jpg",
+                "dorsal": 25,
+                "posicio": "Porter",
+                "qualitat": 90,
+                "nomPersona": "Ellie Roebuck"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/298276.jpg",
+                "dorsal": 17,
+                "posicio": "Davanter",
+                "qualitat": 95,
+                "nomPersona": "Ewa Pajor"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/144814.jpg",
+                "dorsal": 2,
+                "posicio": "Defensa",
+                "qualitat": 85,
+                "nomPersona": "Irene Paredes"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/304437.jpg",
+                "dorsal": 10,
+                "posicio": "Davanter",
+                "qualitat": 94,
+                "nomPersona": "Caroline Graham"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/302775.jpg",
+                "dorsal": 12,
+                "posicio": "Migcampista",
+                "qualitat": 88,
+                "nomPersona": "Patricia Guijarro"
+            }
+        ],
+        "entrenador": {
+            "foto": "https://ligaf.es/media/images/2025/img_employee/208.jpg",
+            "nomPersona": "Pere Romeu",
+            "esSeleccionador": 0
+        }
+    },
+    {
+        "equip": "Real Madrid CF",
+        "escut": "Imagenes/logo_equip/logo_madrid.png",
+        "jugadors": [
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/665699.jpg",
+                "dorsal": 20,
+                "posicio": "Davanter",
+                "qualitat": 89,
+                "nomPersona": "Naomie Noëlle Feller"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/277652.jpg",
+                "dorsal": 24,
+                "posicio": "Migcampista",
+                "qualitat": 87,
+                "nomPersona": "Melanie Leupolz"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/422547.jpg",
+                "dorsal": 7,
+                "posicio": "Defensa",
+                "qualitat": 88,
+                "nomPersona": "Olga Carmona García"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/459982.jpg",
+                "dorsal": 12,
+                "posicio": "Defensa",
+                "qualitat": 85,
+                "nomPersona": "Yasmim Assis Ribeiro"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/332953.jpg",
+                "dorsal": 13,
+                "posicio": "Porter",
+                "qualitat": 86,
+                "nomPersona": "Mylene Chavas"
+            }
+        ],
+        "entrenador": {
+            "foto": "https://ligaf.es/media/images/2025/img_employee/210.jpg",
+            "nomPersona": "Alberto Toril",
+            "esSeleccionador": 0
+        }
+    },
+    {
+        "equip": "Atlético de Madrid",
+        "escut": "Imagenes/logo_equip/logo_atmadrid.png",
+        "jugadors": [
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/3255217.jpg",
+                "dorsal": 22,
+                "posicio": "Davanter",
+                "qualitat": 84,
+                "nomPersona": "Luany Vitória Da Silva Rosa"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/350425.jpg",
+                "dorsal": 8,
+                "posicio": "Migcampista",
+                "qualitat": 85,
+                "nomPersona": "Gabriela Antonia García Segura"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/995805.jpg",
+                "dorsal": 32,
+                "posicio": "Defensa",
+                "qualitat": 83,
+                "nomPersona": "Laura Tanarro Suárez"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/190731.jpg",
+                "dorsal": 9,
+                "posicio": "Davanter",
+                "qualitat": 80,
+                "nomPersona": "Sheila Guijarro Gómez"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/916066.jpg",
+                "dorsal": 21,
+                "posicio": "Migcampista",
+                "qualitat": 82,
+                "nomPersona": "Fiamma Benítez Iannuzzi"
+            }
+        ],
+        "entrenador": {
+            "foto": "https://ligaf.es/media/images/2025/img_employee/202.jpg",
+            "nomPersona": "Víctor Martín",
+            "esSeleccionador": 0
+        }
+    },
+    {
+        "equip": "Sevilla FC",
+        "escut": "Imagenes/logo_equip/logo_sevilla.png",
+        "jugadors": [
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/3265957.jpg",
+                "dorsal": 10,
+                "posicio": "Migcampista",
+                "qualitat": 86,
+                "nomPersona": "Millaray Scarleth Cortés Espinoza"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/3175183.jpg",
+                "dorsal": 20,
+                "posicio": "Davanter",
+                "qualitat": 87,
+                "nomPersona": "Paula Partido Durán"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/422537.jpg",
+                "dorsal": 6,
+                "posicio": "Migcampista",
+                "qualitat": 85,
+                "nomPersona": "Alicia Redondo González"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/144877.jpg",
+                "dorsal": 21,
+                "posicio": "Migcampista",
+                "qualitat": 84,
+                "nomPersona": "Gemma Gili Giner"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/144870.jpg",
+                "dorsal": 1,
+                "posicio": "Porter",
+                "qualitat": 88,
+                "nomPersona": "Esther Sullastres Ayuso"
+            }
+        ],
+        "entrenador": {
+            "foto": "https://ligaf.es/media/images/2025/img_employee/198.jpg",
+            "nomPersona": "David Losada",
+            "esSeleccionador": 0
+        }
+    },
+    {
+        "equip": "Real Sociedad",
+        "escut": "Imagenes/logo_equip/logo_sociedad.png",
+        "jugadors": [
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/862642.jpg",
+                "dorsal": 1,
+                "posicio": "Porter",
+                "qualitat": 83,
+                "nomPersona": "Elene Lete Para"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/278109.jpg",
+                "dorsal": 23,
+                "posicio": "Migcampista",
+                "qualitat": 84,
+                "nomPersona": "Claire Lavogez"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/328981.jpg",
+                "dorsal": 9,
+                "posicio": "Davanter",
+                "qualitat": 82,
+                "nomPersona": "Sanni Maija Franssi"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/327074.jpg",
+                "dorsal": 10,
+                "posicio": "Migcampista",
+                "qualitat": 83,
+                "nomPersona": "Nerea Eizagirre Lasa"
+            },
+            {
+                "foto": "https://ligaf.es/media/images/2025/img_players/3235554.jpg",
+                "dorsal": 15,
+                "posicio": "Davanter",
+                "qualitat": 81,
+                "nomPersona": "Violeta García Quiles"
+            }
+        ],
+        "entrenador": {
+            "foto": "https://ligaf.es/media/images/2025/img_employee/201.jpg",
+            "nomPersona": "José Luis Sánchez Vera",
+            "esSeleccionador": 0
+        }
+    }
+]

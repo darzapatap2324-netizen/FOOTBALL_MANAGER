@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Manager - Classificació</title>
+    <link rel="stylesheet" href="Css/Css.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">
+            <span>Football Manager</span>
+        </a>
+        <nav>
+            <a href="index.html">Inici</a>
+            <a href="equipos.html">Equips</a>
+            <a href="partidos.html">Resultats</a>
+            <a href="clasificacion.html" class="actiu">Classificació</a>
+            <a href="formulario.html">Alta Jugador</a>
+        </nav>
+    </header>
+
+    <div class="titol-pagina">Classificació</div>
+
+    <main>
+        <div class="selector-lliga">
+            <button class="actiu" onclick="mostrarLliga('masc')">Masculí</button>
+            <button onclick="mostrarLliga('fem')">Femení</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Pos</th>
+                    <th>Equip</th>
+                    <th>PJ</th>
+                    <th>G</th>
+                    <th>E</th>
+                    <th>P</th>
+                    <th>GF</th>
+                    <th>GC</th>
+                    <th>Dif</th>
+                    <th>Pts</th>
+                </tr>
+            </thead>
+            <!-- Les files es carregaran aquí amb JavaScript -->
+            <tbody id="taula-classificacio"></tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>Football Manager 2025 | Tots els drets reservats</p>
+    </footer>
+
+    <script src="Js/clasificacion.js"></script>
+
+</body>
+</html>
