@@ -1,0 +1,140 @@
+[
+    {
+        "equip": "FC Barcelona",
+        "escut": "Imagenes/escudos/barcelona.png",
+        "jugadors": [
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/74857-1674465246.jpg?lm=1",
+                "dorsal": 1,
+                "posicio": "Porter",
+                "qualitat": 90,
+                "nomPersona": "Marc-André ter Stegen"
+            },
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/937958-1773173768.jpg?lm=1",
+                "dorsal": 10,
+                "posicio": "Davanter",
+                "qualitat": 95,
+                "nomPersona": "Lamine Yamal"
+            },
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/962110-1712779232.jpg?lm=1",
+                "dorsal": 3,
+                "posicio": "Defensa",
+                "qualitat": 85,
+                "nomPersona": "Pau Cubarsí"
+            },
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/38253-1760445524.jpg?lm=1",
+                "dorsal": 7,
+                "posicio": "Davanter",
+                "qualitat": 94,
+                "nomPersona": "Robert Lewandowski"
+            },
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/293385-1711546268.jpg?lm=1",
+                "dorsal": 5,
+                "posicio": "Migcampista",
+                "qualitat": 88,
+                "nomPersona": "Dani Olmo"
+            }
+        ],
+        "entrenador": {
+            "foto": "Imagenes/entrenadores/Hansi Flick.png",
+            "nomPersona": "Hansi Flick",
+            "esSeleccionador": 0
+        }
+    },
+    {
+        "equip": "Real Madrid CF",
+        "escut": "Imagenes/escudos/real-madrid.png",
+        "jugadors": [
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/371998-1761575144.jpg?lm=1",
+                "dorsal": 9,
+                "posicio": "Davanter",
+                "qualitat": 89,
+                "nomPersona": "Vinicius Junior"
+            },
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/27992-1687776160.jpg?lm=1",
+                "dorsal": 19,
+                "posicio": "Migcampista",
+                "qualitat": 87,
+                "nomPersona": "Luka Modric"
+            },
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/86202-1684484602.jpg?lm=1",
+                "dorsal": 4,
+                "posicio": "Defensa",
+                "qualitat": 88,
+                "nomPersona": "Antonio Rüdiger"
+            },
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/138927-1721026790.jpg?lm=1",
+                "dorsal": 17,
+                "posicio": "Defensa",
+                "qualitat": 85,
+                "nomPersona": "Dani Carvajal"
+            },
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/581678-1748102891.jpg?lm=1",
+                "dorsal": 8,
+                "posicio": "Migcampista",
+                "qualitat": 86,
+                "nomPersona": "Jude Bellingham"
+            }
+        ],
+        "entrenador": {
+            "foto": "Imagenes/entrenadores/Carlo Ancelotti.png",
+            "nomPersona": "Carlo Ancelotti",
+            "esSeleccionador": 0
+        }
+    },
+    {
+        "equip": "Atlético de Madrid",
+        "escut": "Imagenes/escudos/atletico-madrid.png",
+        "jugadors": [
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/581678-1748102891.jpg?lm=1",
+                "dorsal": 10,
+                "posicio": "Davanter",
+                "qualitat": 84,
+                "nomPersona": "Raúl Morata"
+            },
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/775605-1699431384.jpg?lm=1",
+                "dorsal": 21,
+                "posicio": "Migcampista",
+                "qualitat": 85,
+                "nomPersona": "Pablo Barrios"
+            },
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/250845-1664970029.jpg?lm=1",
+                "dorsal": 18,
+                "posicio": "Defensa",
+                "qualitat": 83,
+                "nomPersona": "José María Giménez"
+            },
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/125781-1694505401.jpg?lm=1",
+                "dorsal": 11,
+                "posicio": "Davanter",
+                "qualitat": 80,
+                "nomPersona": "Antoine Griezman"
+            },
+            {
+                "foto": "https://img.a.transfermarkt.technology/portrait/header/74229-1664970397.jpg?lm=1",
+                "dorsal": 20,
+                "posicio": "Migcampista",
+                "qualitat": 82,
+                "nomPersona": "Koke Resurrección"
+            }
+        ],
+        "entrenador": {
+            "foto": "Imagenes/entrenadores/Diego Pablo Simeone.png",
+            "nomPersona": "Diego Pablo Simeone",
+            "esSeleccionador": 0
+        }
+    }
+]
