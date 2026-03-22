@@ -33,29 +33,25 @@ AND persones.nom NOT LIKE 'F%'  AND persones.cognoms LIKE '%e%';
 
 -- 3r Consulta       +Corregit
 /*Donat el nom de la lliga i la temporada. Mostrar la classificació de la lliga amb el nom de l'equip i la puntuació total. Ordenar els equips pel nombre de punts de major a menor.*/
-SELECT equips.nom, SUM(equipos.punts) AS 'Puntuacio_Total'
+SELECT equips.nom, SUM(punts) AS 'Puntuacio_Total'
 FROM (
--- Punts Local
-	SELECT partits.equips_id_local AS 'equips_id', partits.punts_local AS 'punts'
+    SELECT partits.equips_id_local AS equips_id, partits.punts_local AS punts
     FROM partits
     JOIN participar_lligues ON participar_lligues.equips_id = partits.equips_id_local
-	JOIN lligues ON  lligues.id = participar_lligues.lligues_id
-	WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024
-    
+    JOIN lligues ON lligues.id = participar_lligues.lligues_id
+    WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024
+
     UNION ALL
-    
-    SELECT partits.equips_id_visitant AS 'equips_id', partits.punts_visitant AS 'punts'
+
+    SELECT partits.equips_id_visitant AS equips_id, partits.punts_visitant AS punts
     FROM partits
     JOIN participar_lligues ON participar_lligues.equips_id = partits.equips_id_visitant
-	JOIN lligues ON  lligues.id = participar_lligues.lligues_id
-	WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024
-    ) AS equipos
+    JOIN lligues ON lligues.id = participar_lligues.lligues_id
+    WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024
+) AS equipos
 JOIN equips ON equips.id = equipos.equips_id
 GROUP BY equips.nom
 ORDER BY Puntuacio_Total DESC;
-
-
-
 
 -- 4t Consulta
 /*Mostrar l'entrenador i els jugadors d'un equip donat. S'ha de mostrar el nom de l'equip, el tipus de persona, el nom i el cognoms de l'entrenador o jugador concatenats i amb un espai al mig.*/
@@ -66,7 +62,7 @@ JOIN entrenar_equips ON entrenar_equips.entrenadors_id = entrenadors.persones_id
 JOIN equips ON equips.id = entrenar_equips.equips_id 
 WHERE equips.id = 1
 
-UNION
+UNION ALL
 
 SELECT equips.nom, persones.tipus_persona, CONCAT(persones.nom, ' ' ,persones.cognoms) AS 'Nombre_Completo'
 FROM persones
@@ -74,7 +70,6 @@ JOIN jugadors ON jugadors.persones_id = persones.id
 JOIN jugadors_equips ON jugadors_equips.jugadors_id = jugadors.persones_id
 JOIN equips ON equips.id = jugadors_equips.equips_id
 WHERE equips.id = 1;
-
 
 -- 5ta Consulta        + Corregit
 /*Donat un nom de lliga i una temporada, comptar el nombre de jugadors per cada posició. Mostrar la posició i el nombre de jugadors. Ordenar  per la posició en ordre alfabètic. Només s'han de mostrar els jugadors que estiguin d'alta.*/
@@ -89,28 +84,24 @@ WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024 AND jugador
 GROUP BY posicions.posicio
 ORDER BY posicions.posicio ASC;
 
-
-
 -- 6a Consulta
 /*Donat el nom de la lliga, la temporada i el nom d'un equip, seleccionar tots els partits jugats per aquest equip en la temporada. Mostrar la data de la joranda, la jornada, el nom de l'equip local, el gols de l'equip local. els gols de l'equip visitant, el nom de l'equip visitant. S'han d'ordenar per la data de la jornada de menor a major.*/
-SELECT jornades.data, jornades.jornada, equips_local.nom AS 'Nom_Equip_Local', partits.gols_local, equips_visitant.nom AS 'Nom_Equip_Visitant', partits.gols_visitant
+SELECT jornades.data, jornades.jornada, equips_local.nom AS 'Nom_Equip_Local', partits.gols_local, partits.gols_visitant, equips_visitant.nom AS 'Nom_Equip_Visitant'
 FROM partits
 JOIN equips AS equips_local ON equips_local.id = partits.equips_id_local
 JOIN equips AS equips_visitant ON equips_visitant.id = partits.equips_id_visitant
 JOIN jornades ON jornades.id = partits.jornades_id 
 JOIN lligues ON lligues.id = jornades.lligues_id
-WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024 AND (equips_local.nom = 'FC Barcelona' or equips_visitant.nom = 'FC Barcelona' )
-ORDER BY jornades.data asc; 
-
-
+WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024 AND (equips_local.nom = 'FC Barcelona' OR equips_visitant.nom = 'FC Barcelona')
+ORDER BY jornades.data ASC;
 
 -- 7a Consulta  +Corregit
 /*Donada una lliga, una temporada, un equip local i un equip visitant, seleccionar els gols marcats en aquest partit.
  Mostrar la data i la jornada en la que van jugar,  el nom de l'equip local, el nom de l'equip visitant, els gols de l'equip local, 
  els gols de l'equip visitant, el minut del gol, el nom i cognoms del jugador que ha fet gol, l'equip al que pertany el jugador i si ha estat de penalti o no. Ordenar la informació pel minut del gol.*/
 SELECT jornades.data AS 'Fecha_Jornada', jornades.jornada, equips_local.nom AS 'Nombre_Equip_Local', 
-equips_visitant.nom AS 'Nom_Equip_Visitant', partits.gols_local, partits.gols_visitant
- ,partits_gols.minut, persones.nom AS 'Nom_Jugadors', persones.cognoms AS 'Cognoms_Jugador', equips.nom AS 'Equip_Jugador', partits_gols.es_penal 
+equips_visitant.nom AS 'Nom_Equip_Visitant', partits.gols_local, partits.gols_visitant,
+partits_gols.minut, persones.nom AS 'Nom_Jugadors', persones.cognoms AS 'Cognoms_Jugador', equips.nom AS 'Equip_Jugador', partits_gols.es_penal 
 FROM lligues
 JOIN jornades ON jornades.lligues_id = lligues.id
 JOIN partits ON partits.jornades_id = jornades.id
@@ -121,10 +112,10 @@ JOIN jugadors ON jugadors.persones_id = partits_gols.jugadors_id
 JOIN jugadors_equips ON jugadors_equips.jugadors_id = jugadors.persones_id 
 JOIN persones ON persones.id = jugadors.persones_id
 JOIN equips ON equips.id = jugadors_equips.equips_id
-WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024 AND equips_local.nom = 'FC Barcelona' AND equips_visitant.nom = 'Real Madrid CF' 
+WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024 
+AND equips_local.nom = 'FC Barcelona' AND equips_visitant.nom = 'Real Madrid CF'
+AND jugadors_equips.data_baixa IS NULL
 ORDER BY partits_gols.minut ASC;
-
-
 
 -- 8va Consulta
 /*Donada una lliga i una temporada, calcular els gols que ha marcat cada jugador. Mostrar els nom i cognoms del jugador i el nombre de gols. S'ha d'ordenar pel nombre de gols major a menor, i només s'han de mostrar el 10 màxims golejadors.*/
@@ -140,8 +131,6 @@ GROUP BY persones.nom, persones.cognoms
 ORDER BY Gols desc
 LIMIT 10;
 
-
-
 -- 9na Consulta 
 /*Buscar els jugadors que cobrin entre 7.000.000 i 12.000.000, tinguin un nivell de motivació igual o superior a 85 i l'any de la seva data de naixement sigui 1959 o 1985 o 1992. Ordenar pel sou de major a menor.*/
 SELECT concat(persones.nom, ' ', persones.cognoms) AS 'Nom_Complet_Jugador', persones.sou AS 'Salari_Rango', persones.nivell_motivacio, YEAR(persones.data_naixement) AS 'Any_Naixement'
@@ -151,7 +140,6 @@ WHERE persones.sou BETWEEN 7000000 AND 12000000
 AND persones.nivell_motivacio >= 85 AND YEAR(persones.data_naixement) IN (1959, 1985, 1992)
 ORDER BY persones.sou desc;
 
- 
 -- 10ma Consulta          +Corregit
 /*Donat el nom d'una lliga i la temporada. Mostrar el noms dels equips i la mitja de qualitat del seus jugadors. Només mostrar els equips que tinguin una mitja superior a 80, amb dos decimals. Ordenar per la mitja de menor a major.*/
 SELECT equips.nom AS 'Nom_Equip', ROUND(AVG(jugadors.qualitat), 2) AS 'Mitja_qualitat_Jugadors'
@@ -165,14 +153,12 @@ GROUP BY equips.nom
 HAVING AVG(jugadors.qualitat) > 80
 ORDER BY Mitja_qualitat_Jugadors ASC;
 
-
 -- 11va Consulta 
 /*Mostar el nom de l'equip i el nom de l'equip filial, de tots els equips que tinguin filial.*/
 SELECT equips.nom AS 'Nom_Equips', equips_filial.nom AS 'Nom_equips_Filial'
 FROM equips
 JOIN equips AS equips_filial ON equips_filial.id = equips.filial_equips_id;
 		
-
 -- 12va Consulta
 /*Quins equips tenen més de 3 jugadors amb una qualitat superior a 85?*/
 SELECT equips.nom, COUNT(jugadors_equips.jugadors_id) AS Nº_Jugadors
@@ -182,7 +168,6 @@ JOIN jugadors ON jugadors.persones_id = jugadors_equips.jugadors_id
 WHERE jugadors.qualitat > 85
 GROUP BY equips.nom
 HAVING COUNT(jugadors_equips.jugadors_id) > 3;
-
 
 -- 13va Consulta
 /*Quina és la mitjana d'edat, amb dos decimals, dels jugadors
@@ -194,8 +179,6 @@ JOIN jugadors ON jugadors.persones_id = jugadors_equips.jugadors_id
 JOIN persones ON persones.id = jugadors.persones_id
 GROUP BY equips.nom
 ORDER BY Media_EdadJugador desc;
-
-
 
 -- 14va Consulta
 /*Donat el nom d'una lliga i la temporada. Mostrar el màxim golejador*/
@@ -212,33 +195,6 @@ AND lligues.temporada = 2024
 GROUP BY persones.id
 ORDER BY Gols_Jugador DESC
 LIMIT 1;
-
-/*2n opció de resolució(dificultad)*/
-SELECT persones.nom AS 'Nom_Jugador', persones.cognoms AS 'Cognoms_Jugador', COUNT(partits_gols.minut) AS 'Gols_Jugador'
-FROM persones
-JOIN jugadors ON jugadors.persones_id = persones.id
-JOIN partits_gols ON partits_gols.jugadors_id = jugadors.persones_id
-JOIN partits ON partits.id = partits_gols.partits_id
-JOIN jornades ON jornades.id = partits.jornades_id
-JOIN lligues ON lligues.id = jornades.lligues_id
-WHERE lligues.nom = 'La Liga EA Sports'
-AND lligues.temporada = 2024
-GROUP BY persones.id
-HAVING COUNT(partits_gols.minut) = (
-        SELECT MAX(Total_Gols)
-        FROM (
-            SELECT COUNT(*) AS Total_Gols
-            FROM partits_gols
-            JOIN partits ON partits.id = partits_gols.partits_id
-            JOIN jornades ON jornades.id = partits.jornades_id
-            JOIN lligues ON lligues.id = jornades.lligues_id
-            WHERE lligues.nom = 'La Liga EA Sports'
-            AND lligues.temporada = 2024
-            GROUP BY partits_gols.jugadors_id
-        ) AS Gols
-);
-
-
 
 -- 15a Consulta
 /* Donada una lliga i una temporada. Mostrar el dorsal, el nom i cognoms
@@ -257,8 +213,6 @@ JOIN lligues ON lligues.id = jornades.lligues_id
 WHERE lligues.nom = 'La Liga EA Sports' AND lligues.temporada = 2024 AND posicions.id = 2
 GROUP BY jugadors.persones_id, equips.nom
 HAVING COUNT(partits_gols.minut) > 5;
-
-
 
 -- 16a Consulta
 /*Donada una lliga i una temporada. Mostrar els gols marcats per l'equip
@@ -300,7 +254,3 @@ HAVING COUNT(partits_gols.minut) >= (
     AND equips.nom = 'Girona FC'
 ) 
 ORDER BY Gols_Marcats DESC; 
-
-
-USE football_manager; 
-SELECT * FROM lligues;
